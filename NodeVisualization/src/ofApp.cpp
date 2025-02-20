@@ -1,4 +1,5 @@
 #include "ofApp.h"
+#include "ofNode.h"
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -17,7 +18,44 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	switch (key)
+	{
+	    case 'q':
 
+			break;
+
+		case 'w':
+
+			break;
+
+		case 'a':
+
+			break;
+
+		case 's':
+
+			break;
+
+		case 'e':
+
+			break;
+
+		case 'z':
+
+			break;
+
+		case 'x':
+
+			break;
+
+	     case '->':
+
+			break;
+
+		case '<-':
+
+			break;
+	}
 }
 
 //--------------------------------------------------------------

@@ -1,8 +1,9 @@
 #include "ofMain.h"
 #include "ofApp.h"
+#include "ofNode.h"
 
 //========================================================================
-int main( ){
+int main(){
 
 	//Use ofGLFWWindowSettings for more options like multi-monitor fullscreen
 	ofGLWindowSettings settings;
