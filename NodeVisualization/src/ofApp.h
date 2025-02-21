@@ -1,10 +1,42 @@
 #pragma once
 #include "ofMain.h"
+#include "iostream"
+
+class Node
+{
+    public:
+	int data;
+	Node* next;
+
+	Node();
+};
+
+class LinkedList
+{
+    public:
+     Node* head;
+
+    LinkedList();
+
+    void insertAtHead(int value);
+	void insertAtTail(int value);
+    void deleteHead();
+    void deleteTail();
+};
 
 class ofApp : public ofBaseApp{
 
 	public:
-		
+        LinkedList linkedList;	
+		ofEasyCam  camera;
+		glm::vec2  offset;
+
+		float amplitude;
+
+
+		int generateRandomNumber();
+		void moveCamera(float speed);
+		void displayNodes();
 
 		void setup();
 		void update();

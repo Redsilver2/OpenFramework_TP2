@@ -9,7 +9,7 @@ class Node
 
         Node() {
             std::srand(time(0));
-            data = (int)1 + (std::rand() % (1 - 50));
+            data = (int)(1 + (std::rand() % (1 - 50)));
             next = nullptr;
         }
 };
