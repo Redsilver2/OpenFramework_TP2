@@ -38,6 +38,10 @@ class ofApp : public ofBaseApp{
 		void moveCamera(float speed);
 		void displayNodes();
 
+		Node* split(Node* head);
+		Node* merge(Node* first, Node* second);
+		Node* mergeSort(Node* head);
+
 		void setup();
 		void update();
 		void draw();

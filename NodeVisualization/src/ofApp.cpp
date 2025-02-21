@@ -89,7 +89,7 @@ void ofApp::displayNodes() {
 		}
 		else
 		{
-			currentPositionY = offset.y;
+			currentPositionY = 0;
 		}
 
 		while (temp->next != nullptr)
@@ -106,18 +106,64 @@ void ofApp::displayNodes() {
 
 		if (spacing >= 2)
 		{
-			glm::vec2 startPosition = glm::vec2(offset.x,           offset.y);
-			glm::vec2 endPosition   = glm::vec2(offset.x * spacing, offset.y);
+			glm::vec2 startPosition = glm::vec2(offset.x,                 0);
+			glm::vec2 endPosition   = glm::vec2(offset.x * (spacing - 1), 0);
 			ofDrawLine(startPosition, endPosition);
 		}
 	}
+}
+
+Node* ofApp::split(Node* head) {
+	
+	Node* first; Node* second;
+	first  = head;
+	second = head;
+
+	if (first == nullptr || second == nullptr)
+		return head;
+
+	while (first->next == nullptr) 
+	{
+		first = first->next->next;	
+		if (first != nullptr) 
+			second = second->next;
+	}
+
+	Node* temp = second->next;
+	second->next = nullptr;
+	return temp;
+}
+
+Node* ofApp::merge(Node* first, Node* second) {
+
+	if (first  == nullptr) return second;
+	if (second == nullptr) return first;
+
+	if (first->data < second->data) {
+		first->next = merge(first->next, second);
+		return first;
+	}
+
+    second->next = merge(first, second->next);
+	return second;
+}
+
+Node* ofApp::mergeSort(Node* head) {
+
+	if (head == nullptr)       return nullptr;
+	if (head->next == nullptr) return head;
+
+	Node* second    = split(head);
+	head            = mergeSort(head);
+	second          = mergeSort(second);
+	return merge(head, second);
 }
 
 //--------------------------------------------------------------
 void ofApp::setup(){
 	std::srand(time(0));
 	offset    = glm::vec2(100, 100);
-	amplitude = 1;
+	amplitude = 0.10;
 }
 
 //--------------------------------------------------------------
@@ -127,9 +173,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	camera.begin();
-	displayNodes();
-	camera.end();
+	    camera.begin();
+		displayNodes();
+		camera.end();
 }
 
 //--------------------------------------------------------------
@@ -165,21 +211,21 @@ void ofApp::keyPressed(int key){
 		break;
 
 		case 'e':
-
+			linkedList.head = mergeSort(linkedList.head);
 		break;
 
 		case 'z':
 			if (amplitude >= 5) 
 				amplitude = 5;
 			else
-				amplitude += 0.25;
+				amplitude += ofGetLastFrameTime() * 0.5;
 		break;
 
 		case 'x':
 			if (amplitude <= 0)
 				amplitude = 0;
 			else
-			    amplitude -= 0.25;
+			    amplitude -= ofGetLastFrameTime() * 0.5;
 			break;
 		}
 	}
